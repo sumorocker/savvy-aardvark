@@ -7,9 +7,8 @@ Parse.initialize("xMN2SDWbUpH0Tius0RAscb5Ia65CGOD7U1qKtAxH", "wlqxDznzkziAQB2hNh
 
 import FormInput from './FormInput';
 
-
-
 var SignUp = React.createClass({
+
     getInitialState: function () {
         return {
             canSubmit: false
@@ -26,6 +25,7 @@ var SignUp = React.createClass({
         });
     },
     submit: function (model) {
+        var that = this;
         Parse.User
             .signUp(model.email, model.password, {
                 success: function (user) {
@@ -34,10 +34,9 @@ var SignUp = React.createClass({
                 error: function (user, error) {
                     console.log("Sign up error: " + error.message);
                 }
-
+            // Go to Diet Page on Submit
             }).then(function () {
-                // Hook Sign up PAGE 2
-                this.history.pushState('/diet');
+                that.props.history.pushState(null, '/diet');
             }
         );
     },
@@ -81,19 +80,5 @@ var SignUp = React.createClass({
         );
     }
 });
-
-var SignUpDiet = React.createClass({
-
-    render: function () {
-        return (
-            <div className="main">
-                <h1>Choose your diet</h1>
-
-
-            </div>
-        )
-    }
-})
-
 
 export default SignUp;
