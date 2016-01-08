@@ -1,2 +1,164 @@
 // MeyerWeb CSS reset
 @import "reset";
+// Default Colors, Fonts, etc
+@import "default-styles";
+
+// Small Screens - Mobile First!!!!!!
+html, body {
+  background: $bg-color;
+}
+
+#header {
+  border-bottom: 1px solid white;
+  margin: 1em 0;
+  padding-bottom: 1em;
+  text-align: center;
+
+  &__logo {
+    background: white;
+    height: 80px;
+    margin: 14px;
+    overflow: hidden;
+    width: 80px;
+    border-radius: 50%;
+  }
+
+  &__title {
+    color: white;
+  }
+}
+
+nav ul {
+  background: rgba(255, 255, 255, 0.3);
+  bottom: 0;
+  float: left;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  text-align: center;
+  width: 100%;
+
+  li {
+    display: inline-block;
+    margin: .6em 8px;
+    a {
+      background: white;
+      color: $main-color;
+      display: inline-block;
+      padding: .5em;
+      width: 100%;
+    }
+  }
+}
+
+// FORM Styling
+.field {
+  color: grey;
+  display: block;
+  font-family: $form-font;
+  font-size: .85em;
+  font-weight: normal;
+  margin-bottom: 1em;
+
+  label {
+    margin-left: 1px;
+  }
+  input {
+    color: grey;
+    font-size: 1.2em;
+    height: 3em;
+    margin: .1em 0;
+    padding: 0 .35em;
+    width: 100%;
+  }
+}
+
+.submit-btn {
+  display: block;
+  margin: 0 auto;
+  color: white;
+  cursor: pointer;
+  background: green;
+  border: none;
+  font-family: $header-font;
+  font-size: 1.2em;
+  margin: .5em 0 1em;
+  padding: .5em;
+  width: 100px;
+}
+
+.diets li {
+  background: lightyellow;
+  border-radius: 10px;
+  display: block;
+  font-family: $body-font;
+  font-weight: bold;
+  margin: 1em;
+  padding: 1.25em;
+
+}
+// Error Message Class (from react-validation)
+.ui-hint {
+  color: $stop-color;
+  font-weight: bold;
+  margin: -3px 0 .5em;
+}
+
+.main {
+  margin: 2em auto;
+  max-width: 600px;
+
+  h1 {
+    text-align: center;
+    margin-bottom: 1em;
+  }
+
+  &__form {
+    background: rgba(255, 255, 255, .8);
+    margin: 0 1em 1em;
+    padding: 1.5em 1em 2em;
+    width: 92%;
+
+    p {
+      color: grey;
+      font-family: $form-font;
+      margin: 1em 0;
+      text-align: center;
+    }
+  }
+
+  #registered {
+    display: block;
+    float: right;
+    font-family: $form-font;
+    font-size: .8em;
+    //margin-bottom: 1em;
+
+    a {
+      color: $main-color;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+  }
+}
+// ----------------------------------------------------------------------
+// Medium Screens
+@media screen and (min-width: 601px) {
+
+}
+
+// Large Screens
+@media screen and (min-width: 1025px) {
+
+}
+
+// XLarge Screens
+@media screen and (min-width: 1441px) {
+
+}
+
+// Insanely Large Screens (Who uses this? On a TV?)
+@media screen and (min-width: 1921px) {
+
+}
