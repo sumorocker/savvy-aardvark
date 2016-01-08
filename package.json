@@ -35,6 +35,7 @@
   },
   "dependencies": {
     "gulp-sass": "^2.1.1",
+    "parse": "^1.6.14",
     "superagent": "^1.6.1"
   }
 }
