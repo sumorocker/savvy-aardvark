@@ -98,19 +98,21 @@
         
         console.log(Parse.User.current());
         console.log(diet);
-
-        Parse.User.current().set("diet", diet);
+        
+        var user = Parse.User.current();
+  
+        user.set("diet", diet);
 
         if (diet === "Vegetarian") {
-          Parse.User.current().set("to_avoid", ['chicken', 'beef', 'pork'])
+          user.set("to_avoid", ['chicken', 'beef', 'pork']);
         }
         else if (diet === "Vegan") {
-          Parse.User.current().set('to_avoid', ['chicken', 'beef', 'pork', 'eggs', 'milk'])
+          user.set('to_avoid', ['chicken', 'beef', 'pork', 'eggs', 'milk']);
         }
         else if (diet === "Paleo")
-          Parse.User.current().set('to_avoid', ['flour', 'bread', 'wheat', 'rice'])
+          user.set('to_avoid', ['flour', 'bread', 'wheat', 'rice']);
 
-        Parse.User.current().save({
+        user.save({
           success: function(result) {
 
           },
