@@ -1,23 +1,55 @@
 import React from 'react';
 import request from 'superagent';
+import {Link} from 'react-router';
+
+import Formsy from 'formsy-react';
+import FormInput from './FormInput';
 
 var Search = React.createClass({
 
-    getInitialState() {
-        return {};
+    getInitialState: function () {
+        return {
+            canSubmit: false
+        }
     },
-
-    componentWillMount() {
+    enableButton: function () {
         this.setState({
-            loading: true
+            canSubmit: true
         });
+    },
+    disableButton: function () {
+        this.setState({
+            canSubmit: false
+        });
+    },
+    submit: function (model) {
+        event.preventDefault();
     },
 
     render() {
         return (
-            <div>
-                <h2>Search</h2>
+            <div className="main">
+                <h1>Search</h1>
+                <Formsy.Form
+                    className="main__form"
+                    onValidSubmit={this.submit}
+                    onValid={this.enableButton}
+                    onInvalid={this.disableButton}>
+                    <div className="field">
+                        <label>Search!</label>
+                        <FormInput
+                            name="search"
+                            title="Search"
+                            required/>
+                    </div>
+                    <button
+                        className="submit-btn"
+                        type="submit"
+                        disabled={!this.state.canSubmit}>
+                        Go!
+                    </button>
 
+                </Formsy.Form>
             </div>
         )
     }

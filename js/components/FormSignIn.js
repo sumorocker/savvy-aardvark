@@ -2,6 +2,10 @@ import React from 'react';
 import {Link} from 'react-router';
 import Formsy from 'formsy-react';
 
+import Parse from 'parse'
+Parse.initialize("xMN2SDWbUpH0Tius0RAscb5Ia65CGOD7U1qKtAxH", "wlqxDznzkziAQB2hNhMFu5VKXvwKskjDonIhlSNn");
+
+
 import FormInput from './FormInput';
 
 var SignIn = React.createClass({
@@ -21,7 +25,22 @@ var SignIn = React.createClass({
         });
     },
     submit: function (model) {
-        // someDep.saveEmail(model.email);
+        event.preventDefault();
+        var that = this;
+        Parse.User
+            .logIn(model.email, model.password, {
+                success: function (user) {
+                    console.log("Welcome!");
+                },
+                error: function (user, error) {
+                    console.log("Sign up error: " + error.message);
+                }
+                // Go to Diet Page on Submit
+            }).then(function () {
+                console.log("User " + model.email + " logged in!");
+                //that.props.history.pushState(null, '/diet');
+            }
+        );
     },
     render: function () {
         return (

@@ -29,6 +29,7 @@ const FormRadio = React.createClass({
                         <input
                             type="radio"
                             name={name}
+                            ref={name}
                             onChange={this.changeValue.bind(this, item)}
                             checked={this.state.value === item}
                         />

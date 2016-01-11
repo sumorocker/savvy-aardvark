@@ -7,7 +7,7 @@ Parse.initialize("xMN2SDWbUpH0Tius0RAscb5Ia65CGOD7U1qKtAxH", "wlqxDznzkziAQB2hNh
 
 import FormInput from './FormInput';
 
-var SignUp = React.createClass({
+var SignUpPart1 = React.createClass({
 
     getInitialState: function () {
         return {
@@ -25,18 +25,17 @@ var SignUp = React.createClass({
         });
     },
     submit: function (model) {
+        event.preventDefault();
         var that = this;
         Parse.User
             .signUp(model.email, model.password, {
                 success: function (user) {
-                    console.log("Welcome!");
                 },
                 error: function (user, error) {
                     console.log("Sign up error: " + error.message);
                 }
-            // Go to Diet Page on Submit
             }).then(function () {
-                that.props.history.pushState(null, '/diet');
+                that.props.history.pushState(null, '/signup-name');
             }
         );
     },
@@ -44,6 +43,7 @@ var SignUp = React.createClass({
         return (
             <div className="main">
                 <h1>Sign Up!</h1>
+                <h6>Step 1 of 4</h6>
                 <Formsy.Form
                     className="main__form"
                     onValidSubmit={this.submit}
@@ -81,4 +81,4 @@ var SignUp = React.createClass({
     }
 });
 
-export default SignUp;
+export default SignUpPart1;
