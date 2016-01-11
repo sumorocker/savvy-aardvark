@@ -7,7 +7,7 @@ Parse.initialize("xMN2SDWbUpH0Tius0RAscb5Ia65CGOD7U1qKtAxH", "wlqxDznzkziAQB2hNh
 
 import FormInput from './FormInput';
 
-var SignUpPart1 = React.createClass({
+var FormSignUp1 = React.createClass({
 
     getInitialState: function () {
         return {
@@ -74,11 +74,13 @@ var SignUpPart1 = React.createClass({
                         disabled={!this.state.canSubmit}>
                         Begin!
                     </button>
-                    <p id="registered">Already Registered? <Link to="/signin">Log In</Link></p>
+                    <p id="registered">Already Registered? <Link to="/signin">Sign In</Link></p>
                 </Formsy.Form>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet culpa ipsam minus nemo provident quaerat sit tempore tenetur vero voluptate!</p>
+                <Link to="/moreinfo">More Info</Link>
             </div>
         );
     }
 });
 
-export default SignUpPart1;
+export default FormSignUp1;

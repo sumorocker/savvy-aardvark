@@ -30,15 +30,12 @@ var SignIn = React.createClass({
         Parse.User
             .logIn(model.email, model.password, {
                 success: function (user) {
-                    console.log("Welcome!");
                 },
                 error: function (user, error) {
                     console.log("Sign up error: " + error.message);
                 }
-                // Go to Diet Page on Submit
             }).then(function () {
-                console.log("User " + model.email + " logged in!");
-                //that.props.history.pushState(null, '/diet');
+                that.props.history.pushState(null, '/search');
             }
         );
     },

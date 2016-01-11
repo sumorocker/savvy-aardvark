@@ -7,12 +7,11 @@ Parse.initialize("xMN2SDWbUpH0Tius0RAscb5Ia65CGOD7U1qKtAxH", "wlqxDznzkziAQB2hNh
 
 import FormRadio from './FormRadio';
 
-var chosenDiet;
 var restrictionsVegetarian = ['chicken', 'beef'];
 var restrictionsVegan = ['chicken', 'beef', 'eggs'];
 var restrictionsPaleo = ['flour', 'gluten', 'nuts'];
 
-var Diet = React.createClass({
+var FormSignUp3diet = React.createClass({
     getInitialState: function () {
         return {
             canSubmit: false,
@@ -31,11 +30,19 @@ var Diet = React.createClass({
             statusMessage: false
         });
     },
+    onChangeDiet: function (values) {
+        console.log(values.diet);
+        this.setState({
+            chosenDiet: values.diet
+        })
+    },
 
     submit: function (model) {
         event.preventDefault();
+        var that = this;
 
         var user = Parse.User.current();
+
         user.set("diet", model.diet);
         if (model.diet === "Vegetarian") {
             user.set('to_avoid', restrictionsVegetarian);
@@ -53,7 +60,9 @@ var Diet = React.createClass({
             error: function (error) {
                 console.log(error.message);
             }
-        })
+        }).then(function() {
+            that.props.history.pushState(null, '/ingredients');
+        });
     },
     render () {
         return (
@@ -61,6 +70,7 @@ var Diet = React.createClass({
                 <h1>Diet</h1>
                 <h6>Step 3 of 4</h6>
                 <Formsy.Form
+                    onChange={this.onChangeDiet}
                     className="main__form"
                     onValidSubmit={this.submit}
                     onValid={this.enableButton}
@@ -74,7 +84,7 @@ var Diet = React.createClass({
                         name="diet"
                         items={["Vegan", "Vegetarian", "Paleo", "None"]}
                     />
-                    { this.state.statusMessage ? <DietResults /> : null }
+                    { this.state.statusMessage ? <DietResults diet={this.state.chosenDiet}/> : null }
 
                     <button
                         className="submit-btn"
@@ -90,14 +100,26 @@ var Diet = React.createClass({
 
 var DietResults = React.createClass({
     render () {
-        return (
-            <div className="statusMessage">
-                <p>Great! Because you chose a {chosenDiet} diet, we'll be looking out for the following ingredients: .</p>
-                <p>You'll be able to customize this list in the next step...</p>
-            </div>
-        )
+        if (this.props.diet === "None") {
+            return (
+                <div className="statusMessage">
+                    <p>Great! You didn't choose a specific diet. On the next page you'll be able to add specific
+                        ingredients that we should watch out for.</p>
+                </div>
+
+            )
+        } else {
+            return (
+                <div className="statusMessage">
+                    <p>Great! Because you chose a {this.props.diet} diet, we'll be looking out for the following
+                        ingredients: {Parse.User.current().get("to_avoid").join(", ")}
+                        .</p>
+                    <p>You'll be able to customize this list in the next step...</p>
+                </div>
+            )
+        }
     }
 
 });
 
-export default Diet;
+export default FormSignUp3diet;

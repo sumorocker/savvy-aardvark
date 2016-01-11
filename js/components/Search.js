@@ -5,6 +5,9 @@ import {Link} from 'react-router';
 import Formsy from 'formsy-react';
 import FormInput from './FormInput';
 
+import Parse from 'parse'
+Parse.initialize("xMN2SDWbUpH0Tius0RAscb5Ia65CGOD7U1qKtAxH", "wlqxDznzkziAQB2hNhMFu5VKXvwKskjDonIhlSNn");
+
 var Search = React.createClass({
 
     getInitialState: function () {
@@ -37,7 +40,7 @@ var Search = React.createClass({
                     onInvalid={this.disableButton}>
 
                     <div className="field searchBar">
-                        <label>Search!</label>
+                        <label>Diet: {Parse.User.current().get("diet")}</label>
                         <FormInput
                             name="search"
                             title="Search"

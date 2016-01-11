@@ -7,7 +7,7 @@ Parse.initialize("xMN2SDWbUpH0Tius0RAscb5Ia65CGOD7U1qKtAxH", "wlqxDznzkziAQB2hNh
 
 import FormInput from './FormInput';
 
-var SignUpPart2 = React.createClass({
+var FormSignUp2name = React.createClass({
 
     getInitialState: function () {
         return {
@@ -27,17 +27,22 @@ var SignUpPart2 = React.createClass({
     submit: function (model) {
         event.preventDefault();
         var that = this;
-        //Parse.User
-        //    .signUp(model.firstName, model.lastName, {
-        //        success: function (user) {
-        //        },
-        //        error: function (user, error) {
-        //            console.log("Sign up error: " + error.message);
-        //        }
-        //    }).then(function () {
-        //        that.props.history.pushState(null, '/diet');
-        //    }
-        //);
+
+        var user = Parse.User.current();
+        user.set("firstName", model.firstName);
+        user.set("lastName", model.lastName);
+        user.set("birthday", model.birthday);
+        user.set("country", model.country);
+
+        user.save({
+            success: function (result) {
+            },
+            error: function (error) {
+                console.log(error.message);
+            }
+        }).then(function () {
+            that.props.history.pushState(null, '/diet');
+        })
     },
     render: function () {
         return (
@@ -94,4 +99,4 @@ var SignUpPart2 = React.createClass({
     }
 });
 
-export default SignUpPart2;
+export default FormSignUp2name;
