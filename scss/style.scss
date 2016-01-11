@@ -88,6 +88,17 @@ nav ul {
   width: 100px;
 }
 
+.searchBar {
+  display: inline-block;
+  width: 85%;
+}
+.searchSubmit {
+  display: inline-block;
+  width: 15%;
+  border: none;
+  margin-left: -1px;
+}
+
 .diets li {
   background: lightyellow;
   border-radius: 10px;

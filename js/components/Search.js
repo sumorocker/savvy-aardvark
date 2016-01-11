@@ -35,7 +35,8 @@ var Search = React.createClass({
                     onValidSubmit={this.submit}
                     onValid={this.enableButton}
                     onInvalid={this.disableButton}>
-                    <div className="field">
+
+                    <div className="field searchBar">
                         <label>Search!</label>
                         <FormInput
                             name="search"
@@ -43,7 +44,7 @@ var Search = React.createClass({
                             required/>
                     </div>
                     <button
-                        className="submit-btn"
+                        className="submit-btn searchSubmit"
                         type="submit"
                         disabled={!this.state.canSubmit}>
                         Go!
