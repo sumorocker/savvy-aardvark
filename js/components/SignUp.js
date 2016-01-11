@@ -8,6 +8,7 @@ var SignUp = React.createClass({
         		<p><input id="username" type= "text"/></p>
         		<p><input id="password" type= "password"/></p>
         		<p><input id="signup-submit" type= "submit"/></p>
+            <p><input id="upc" type="text"/></p>
         	</form>
         )
     }
@@ -18,7 +19,7 @@ Parse.initialize("xMN2SDWbUpH0Tius0RAscb5Ia65CGOD7U1qKtAxH", "wlqxDznzkziAQB2hNh
 
 var Post = Parse.Object.extend("User")
 
- $("#signup").submit(function(event){
+$("#signup").submit(function(event){
       event.preventDefault();
 
       var name = $("#username").val();
@@ -38,6 +39,5 @@ var Post = Parse.Object.extend("User")
       }
     })
 });
-
 
 export default SignUp;
