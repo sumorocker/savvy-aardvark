@@ -28,6 +28,21 @@
         <input type="submit" id="signup-submit" />
       </p>
     </form>
+    
+    <!--Log in-->
+    <h1>Log in</h1>
+    
+    <form id="login">
+      <p>
+        <input type="text" id="login-name" />
+      </p>
+      <p>
+        <input type="password" id="login-password" />
+      </p>
+      <p>
+        <input type="submit" id="login-submit" />
+      </p>
+    </form>
 
     <!--Log out!-->
     <h1> Log out</h1>
@@ -52,10 +67,22 @@
       </p>
     </form>
 
-    <!--List to avoid-->
+    <!--Display ingredients to avoid-->
+
     <form id="to_avoid">
 
     </form>
+
+    <!--List of ingredients to avoid-->
+
+    <h1>Choose an ingredient you'd like to avoid</h1>
+
+    <form id="ingredient_form">
+      <p><input type="form" name="ingredient_avoid" id="ingredient_avoid" /></p>
+      <p><input type="submit" name="submit"/></p>
+    </form>
+
+    <!--Javascript stuff-->
 
     <script type="text/javascript">
       Parse.initialize("xMN2SDWbUpH0Tius0RAscb5Ia65CGOD7U1qKtAxH", "wlqxDznzkziAQB2hNhMFu5VKXvwKskjDonIhlSNn");
@@ -64,6 +91,24 @@
 
       $('#logout').click(function(event) {
         Parse.User.logOut()
+      });
+      
+      $("#login").submit(function(event) {
+        event.preventDefault();
+
+
+        var name = $("#login-name").val();
+        var pass = $("#login-password").val();
+        
+        Parse.User.logIn(name, pass, {
+          success: function(user) {
+            console.log("Welcome!");
+          },
+          error: function(user, error) {
+            console.log("Login error: " + error.message);
+          }
+
+        });
       });
 
       $("#signup").submit(function(event) {
@@ -90,17 +135,18 @@
 
         });
       });
+      
 
       $("#diet_profile").submit(function(event) {
         event.preventDefault();
-
-        var diet = $("input:radio[name=diet]:checked").val();
-        
-        console.log(Parse.User.current());
-        console.log(diet);
         
         var user = Parse.User.current();
-  
+        
+        var diet = $("input:radio[name=diet]:checked").val();
+
+        console.log(Parse.User.current());
+        console.log(diet);
+
         user.set("diet", diet);
 
         if (diet === "Vegetarian") {
@@ -118,25 +164,48 @@
           },
           error: function(error) {
             console.log("Error: " + error.message);
-
           }
         });
+        
+        
+
+        // var query = new Parse.Query("User");
+
+        // query.equalTo("objectId", 'bhvuJNwimE');
+        
+        // query.find({
+        //   success: function(results) {
+        //     for (var i = 0; i < results.length; i++) {
+        //       $('#to_avoid').append('<p><input type="radio" name="to_avoid" value="' + results[i].get('to_avoid') + '" id="' + results[i].get('to_avoid') + '"/>' + results[i].get('to_avoid') + '</p>');
+        //     }
+        //   },
+        //   error: function(error) {
+        //     console.log("There's an error: " + error.message);
+        //   }
+        // });
+
       });
-
-
-      // var query = new Parse.Query("User");
-
-      // query.equalTo("objectId", currentUser.objectId);
-      // query.find({
-      //   success: function(results){
-      //     for (var i=0; i < results.length; i++){
-      //       $('#to_avoid').append('<p><input type="radio" name="to_avoid" value="' + results[i] + '" id="' + results[i] + '"/>' + results[i] + '</p>');
-      //     }
-      //   }, error: function(error){
-      //     console.log("There's an error: " + error.message)
-      //   }
-
-      // });
+      
+      $("#ingredient_form").submit(function(event) {
+          console.log("fsdf");
+            event.preventDefault();
+              
+            var user = Parse.User.current();
+            
+            var ingredient = $("#ingredient_avoid").val();
+            console.log(ingredient);
+            
+            user.addUnique('to_avoid', ingredient);
+            user.save({
+              success: function(user){
+                console.log("Ingredient added!");
+              }, error: function(){
+                console.log("Error adding ingredient: " + error.message);
+              }
+              
+            });
+            
+        });
     </script>
 </body>
 
