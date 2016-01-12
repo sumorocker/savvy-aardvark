@@ -12,22 +12,45 @@ var UserProfile = React.createClass({
             <div className="main">
                 <h1>Your Profile</h1>
                 <div className="main__panel">
-                    <ul className="userProfileList">
+                    <ul className="user">
                         <li>
-                            <h3>First Name</h3>
-                            <p>{Parse.User.current().get("firstName")}</p>
-                            <h3>Last Name</h3>
-                            <p>{Parse.User.current().get("firstName")}</p>
-                            <h3>Birthday</h3>
-                            <p>{Parse.User.current().get("birthday")}</p>
-                            <h3>Country of Residence</h3>
-                            <p>{Parse.User.current().get("country")}</p>
+                            <div className="user__detail">
+                                <h3>First Name</h3>
+                                <p>{Parse.User.current().get("firstName")}</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div className="user__detail">
+                                <h3>Last Name</h3>
+                                <p>{Parse.User.current().get("firstName")}</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div className="user__detail">
+                                <h3>Birthday</h3>
+                                <p>{Parse.User.current().get("birthday")}</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div className="user__detail">
+                                <h3>Country of Residence</h3>
+                                <p>{Parse.User.current().get("country")}</p>
+                            </div>
+                        </li>
 
-                            <hr />
-                            <h3>Chosen Diet</h3>
-                            <p>{Parse.User.current().get("diet")}</p>
-                            <h3>Indredients to Avoid</h3>
-                            <p>{Parse.User.current().get("to_avoid").join(", ")}</p>
+                        <hr />
+
+                        <li>
+                            <div className="user__detail">
+                                <h3>Chosen Diet</h3>
+                                <p>{Parse.User.current().get("diet")}</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div className="user__detail">
+                                <h3>Indredients to Avoid</h3>
+                                <p>{Parse.User.current().get("to_avoid").join(", ")}</p>
+                            </div>
                         </li>
                     </ul>
                 </div>

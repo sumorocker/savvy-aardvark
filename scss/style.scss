@@ -9,9 +9,11 @@ html {
   background-size: cover;
   height: 100%;
 }
+
 body {
   //height: 100%;
 }
+
 #header {
   margin: 1em 0;
   padding-bottom: 1em;
@@ -189,6 +191,21 @@ nav {
       color: $main-color;
       font-weight: bold;
       text-transform: uppercase;
+    }
+  }
+}
+
+.user {
+
+  &__detail {
+
+    li {
+      h3 {
+
+      }
+      p {
+
+      }
     }
   }
 }
