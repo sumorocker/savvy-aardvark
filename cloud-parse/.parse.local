@@ -1,0 +1,10 @@
+{
+  "applications": {
+    "Savvy Aardvark": {
+      "applicationId": "xMN2SDWbUpH0Tius0RAscb5Ia65CGOD7U1qKtAxH"
+    },
+    "_default": {
+      "link": "Savvy Aardvark"
+    }
+  }
+}

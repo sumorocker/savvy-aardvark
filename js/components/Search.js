@@ -33,10 +33,12 @@ var Search = React.createClass({
     submit: function (model) {
         event.preventDefault();
 
-        var that = this;
-        var searchInputObj = this.refs.searchInput.value;
+        console.log(model.searchInput);
 
-        if (!isNaN(this.refs.searchInput.value)) {
+        var that = this;
+        var searchInputObj = model.searchInput;
+
+        if (!isNaN(model.searchInput)) {
             Parse.Cloud.run('UPC', {search: searchInputObj}).then(function (response) {
                 console.log(response)
                 that.setState({
@@ -61,7 +63,7 @@ var Search = React.createClass({
             })
 
         } else {
-            var searchInputObj = this.refs.searchInput.value;
+            var searchInputObj = model.searchInput;
             var res = searchInputObj.replace(' ', '+');
             Parse.Cloud.run('productName', {search: res}).then(function (response) {
                 console.log(response)
@@ -88,7 +90,7 @@ var Search = React.createClass({
                     <div className="field searchBar">
                         <label>Diet: {Parse.User.current().get("diet")}</label>
                         <FormInput
-                            name="search"
+                            name="searchInput"
                             title="Search"
                             required/>
                     </div>
