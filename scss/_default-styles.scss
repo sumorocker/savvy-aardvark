@@ -1,0 +1,40 @@
+// Colors
+$main-color: #59abdf;
+$accent-color: white;
+$bg-color: #59abdf;
+$go-color: green;
+$warning-color: yellow;
+$stop-color: red;
+
+// Fonts (using Typekit)
+$header-font: "brandon-grotesque", sans-serif;
+$body-font: "Helvetica Neue", sans-serif;
+$form-font: "Helvetica Neue", sans-serif;
+
+* { font-family: $body-font; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $header-font;
+  font-weight: bold;
+}
+
+nav ul li {
+  font-family: $header-font;
+}
+
+// Default Global Font Sizes
+body { font-size: 18px; } // Default 1em = 18px
+h1 { font-size: 2.0em; }
+h2 { font-size: 1.6em; }
+h3 { font-size: 1.4em; }
+h4 { font-size: 1.3em; }
+h5 { font-size: 1.2em; }
+h6 { font-size: 1.1em; }
+
+nav ul li { font-size: 1.33em; }
+
+// Button State Styling
+button:disabled {
+  cursor: default;
+  opacity: .4;
+}
