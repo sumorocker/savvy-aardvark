@@ -6,10 +6,7 @@ import Parse from 'parse';
 Parse.initialize("xMN2SDWbUpH0Tius0RAscb5Ia65CGOD7U1qKtAxH", "wlqxDznzkziAQB2hNhMFu5VKXvwKskjDonIhlSNn");
 
 import FormRadio from './FormRadio';
-
-var restrictionsVegetarian = ['chicken', 'beef'];
-var restrictionsVegan = ['chicken', 'beef', 'eggs'];
-var restrictionsPaleo = ['flour', 'gluten', 'nuts'];
+import dietSpecs from './DietSpecifications';
 
 var FormSignUp3diet = React.createClass({
     getInitialState: function () {
@@ -45,11 +42,11 @@ var FormSignUp3diet = React.createClass({
 
         user.set("diet", model.diet);
         if (model.diet === "Vegetarian") {
-            user.set('to_avoid', restrictionsVegetarian);
+            user.set('to_avoid', dietSpecs.restrictionsVegetarian());
         } else if (model.diet === "Vegan") {
-            user.set('to_avoid', restrictionsVegan);
+            user.set('to_avoid', dietSpecs.restrictionsVegan());
         } else if (model.diet === "Paleo") {
-            user.set('to_avoid', restrictionsPaleo);
+            user.set('to_avoid', dietSpecs.restrictionsPaleo());
         } else if (model.diet === "None") {
             user.set('to_avoid', []);
 
@@ -82,7 +79,7 @@ var FormSignUp3diet = React.createClass({
                     <FormRadio
                         required
                         name="diet"
-                        items={["Vegan", "Vegetarian", "Paleo", "None"]}
+                        items={["Vegan", "Vegetarian", "Paleo", "None", "Fruitarian"]}
                     />
                     { this.state.statusMessage ? <DietResults diet={this.state.chosenDiet}/> : null }
 

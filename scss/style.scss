@@ -5,7 +5,7 @@
 
 // Small Screens - Mobile First!!!!!!
 html {
-  background: url('/images/bgImages/bg1.jpg') no-repeat center center fixed;
+  background: url('/images/bgImages/bg5.jpg') no-repeat center center fixed;
   background-size: cover;
   height: 100%;
 }
@@ -15,14 +15,29 @@ body {
 }
 
 #header {
-  margin: 1em 0;
+  margin: .75em 0;
   padding-bottom: 1em;
   text-align: center;
 
+  &__savvy {
+    display: inline-block;
+    text-align: right;
+    top: -.8em;
+    right: 20px;
+    position: relative;
+    width: 100px;
+  }
+  &__aardvark {
+    display: inline-block;
+    top: -.8em;
+    left: 20px;
+    position: relative;
+    width: 100px;
+  }
   &__logo {
     background: white;
     height: 80px;
-    margin: 14px;
+    margin: .5em 0 0 0;
     overflow: hidden;
     width: 80px;
     border-radius: 50%;
@@ -75,8 +90,39 @@ nav {
   }
 }
 
-.signin {
+.tooltip {
+  display: inline;
+  position: relative;
 
+  &:hover {
+
+    &:after {
+      background: $go-color;
+      bottom: -29px;
+      color: #fff;
+      content: attr(title);
+      font-size: 14px;
+      left: -18px;
+      padding: 5px 15px;
+      position: absolute;
+      z-index: 98;
+      width: 150px;
+    }
+
+    &:before {
+      border: solid;
+      border-color: $go-color transparent;
+      border-width: 0 6px 6px 6px;
+      bottom: -6px;
+      content: "";
+      left: 8px;
+      position: absolute;
+      z-index: 99;
+    }
+  }
+}
+
+.signin {
   &__btn {
     background: $main-color;
     border: 1px solid white;
@@ -158,6 +204,7 @@ nav {
 }
 
 .main {
+  display: block;
   margin: 2em auto;
   max-width: 600px;
 
@@ -176,7 +223,6 @@ nav {
       color: grey;
       font-family: $form-font;
       margin: 1em 0;
-      text-align: center;
     }
   }
 
@@ -199,13 +245,11 @@ nav {
 
   &__detail {
 
-    li {
-      h3 {
+    h3 {
+      font-size: 1em;
+    }
+    p {
 
-      }
-      p {
-
-      }
     }
   }
 }

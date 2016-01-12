@@ -7,10 +7,6 @@ Parse.initialize("xMN2SDWbUpH0Tius0RAscb5Ia65CGOD7U1qKtAxH", "wlqxDznzkziAQB2hNh
 
 import FormInput from './FormInput';
 
-var restrictionsVegetarian = ['chicken', 'beef'];
-var restrictionsVegan = ['chicken', 'beef', 'eggs'];
-var restrictionsPaleo = ['flour', 'gluten', 'nuts'];
-
 var FormSignUp4ingr = React.createClass({
     getInitialState: function () {
         return {

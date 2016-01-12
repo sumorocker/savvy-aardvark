@@ -48,7 +48,7 @@ var routes = (
                 <Route path="search" component={Search}/>
 
                 {/* This should be dynamic and change to match the actual term searched */}
-                <Route path="search-result" component={SearchResult}/>
+                <Route path="search-result/:id" component={SearchResult}/>
             </Route>
             <Route path="moreinfo" component={MoreInfo}/>
             <Route path="*" component={NotFound}/>
