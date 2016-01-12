@@ -5,7 +5,7 @@ import Formsy from 'formsy-react';
 import Parse from 'parse';
 Parse.initialize("xMN2SDWbUpH0Tius0RAscb5Ia65CGOD7U1qKtAxH", "wlqxDznzkziAQB2hNhMFu5VKXvwKskjDonIhlSNn");
 
-import FormRadio from './FormRadio';
+import FormInput from './FormInput';
 
 var restrictionsVegetarian = ['chicken', 'beef'];
 var restrictionsVegan = ['chicken', 'beef', 'eggs'];
@@ -42,13 +42,17 @@ var FormSignUp4ingr = React.createClass({
         var that = this;
         var user = Parse.User.current();
 
+        var ingredient = model.ingredient;
+        console.log(ingredient);
+
+        user.addUnique('to_avoid', ingredient);
         user.save({
             success: function (result) {
             },
             error: function (error) {
                 console.log(error.message);
             }
-        }).then(function() {
+        }).then(function () {
             that.props.history.pushState(null, '/search');
         });
     },
@@ -63,6 +67,15 @@ var FormSignUp4ingr = React.createClass({
                     onValidSubmit={this.submit}
                     onValid={this.enableButton}
                     onInvalid={this.disableButton}>
+
+                    <div className="field">
+                        <label>Ingredients to Avoid</label>
+                        <FormInput
+                            placeholder="single ingredient"
+                            name="ingredient"
+                            title="ingredient"
+                        />
+                    </div>
 
                     <button
                         className="submit-btn"
