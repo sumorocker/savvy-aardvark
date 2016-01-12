@@ -20,7 +20,12 @@ var FormInput = React.createClass({
         var errorMessage = this.getErrorMessage();
         return (
             <div className={className}>
-                <input type={this.props.type || 'text'} onChange={this.changeValue} value={this.getValue()}/>
+                <input
+                    type={this.props.type || 'text'}
+                    placeholder={this.props.placeholder || ''}
+                    onChange={this.changeValue}
+                    value={this.getValue()}/>
+
                 <span>{errorMessage}</span>
             </div>
         );

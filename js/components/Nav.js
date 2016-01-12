@@ -32,7 +32,7 @@ var Nav = React.createClass({
                     <ul>
                         <li><Link to="/" onClick={logOutNow}><i className="fa fa-sign-out"></i></Link></li>
                         <li><Link to=""><i className="fa fa-user"></i></Link></li>
-                        <li><Link tp=""><i className="fa fa-history"></i></Link></li>
+                        <li><Link to=""><i className="fa fa-history"></i></Link></li>
                     </ul>
                 </nav>
             )

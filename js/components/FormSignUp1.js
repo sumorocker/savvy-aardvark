@@ -35,9 +35,16 @@ var FormSignUp1 = React.createClass({
                     console.log("Sign up error: " + error.message);
                 }
             }).then(function () {
-                that.props.history.pushState(null, '/signup-name');
-            }
-        );
+            Parse.User.current().set("email", model.email);
+            Parse.User.current().save({
+                success: function (result) {
+                },
+                error: function (error) {
+                    console.log(error.message);
+                }
+            });
+            that.props.history.pushState(null, '/signup-name');
+        });
     },
     render: function () {
         return (
@@ -45,13 +52,14 @@ var FormSignUp1 = React.createClass({
                 <h1>Sign Up!</h1>
                 <h6>Step 1 of 4</h6>
                 <Formsy.Form
-                    className="main__form"
+                    className="main__panel"
                     onValidSubmit={this.submit}
                     onValid={this.enableButton}
                     onInvalid={this.disableButton}>
                     <div className="field">
                         <label>Enter your email</label>
                         <FormInput
+                            placeholder="amazing@person.you"
                             name="email"
                             title="Email"
                             validations="isEmail"
@@ -61,10 +69,10 @@ var FormSignUp1 = React.createClass({
                     <div className="field">
                         <label>Create a Password</label>
                         <FormInput
+                            placeholder="a bulletproof password"
                             name="password"
                             title="Password"
                             type="password"
-
                             validationError="This is not a valid password"
                             required/>
                     </div>
@@ -76,8 +84,11 @@ var FormSignUp1 = React.createClass({
                     </button>
                     <p id="registered">Already Registered? <Link to="/signin">Sign In</Link></p>
                 </Formsy.Form>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet culpa ipsam minus nemo provident quaerat sit tempore tenetur vero voluptate!</p>
-                <Link to="/moreinfo">More Info</Link>
+                <div className="main__panel">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet culpa ipsam minus nemo provident
+                        quaerat sit tempore tenetur vero voluptate!</p>
+                    <Link to="/moreinfo">More Info</Link>
+                </div>
             </div>
         );
     }

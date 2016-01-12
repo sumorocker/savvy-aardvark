@@ -34,7 +34,7 @@ var Search = React.createClass({
             <div className="main">
                 <h1>Search</h1>
                 <Formsy.Form
-                    className="main__form"
+                    className="main__panel"
                     onValidSubmit={this.submit}
                     onValid={this.enableButton}
                     onInvalid={this.disableButton}>

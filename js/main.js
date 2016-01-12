@@ -12,6 +12,7 @@ import NotFound from './components/NotFound';
 import Search from './components/Search';
 import SearchResult from './components/SearchResult';
 import SignIn from './components/FormSignIn';
+import UserProfile from './components/UserProfile';
 import FormSignUp1 from './components/FormSignUp1';
 import FormSignUp2name from './components/FormSignUp2name';
 import FormSignUp3diet from './components/FormSignUp3diet';
@@ -24,7 +25,7 @@ function mustBeLoggedIn(route, replaceState) {
     }
 }
 
-function loggedIn(route, replaceState) {
+function frontPageDisplay(route, replaceState) {
     if (!Parse.User.current()) {
         replaceState(null, '/signup');
     } else {
@@ -35,11 +36,12 @@ function loggedIn(route, replaceState) {
 var routes = (
     <Router history={createHistory()}>
         <Route path="/" component={App}>
-            <IndexRoute onEnter={loggedIn} />
+            <IndexRoute onEnter={frontPageDisplay} />
             <Route path="signin" component={SignIn}/>
             <Route path="signup" component={FormSignUp1}/>
 
             <Route onEnter={mustBeLoggedIn}>
+                <Route path="userprofile" component={UserProfile}/>
                 <Route path="signup-name" component={FormSignUp2name}/>
                 <Route path="diet" component={FormSignUp3diet}/>
                 <Route path="ingredients" component={FormSignUp4ingr}/>

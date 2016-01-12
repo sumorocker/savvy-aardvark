@@ -59,7 +59,7 @@ var FormSignUp4ingr = React.createClass({
                 <h6>Step 4 of 4</h6>
                 <Formsy.Form
                     onChange={this.onChangeDiet}
-                    className="main__form"
+                    className="main__panel"
                     onValidSubmit={this.submit}
                     onValid={this.enableButton}
                     onInvalid={this.disableButton}>

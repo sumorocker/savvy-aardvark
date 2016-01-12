@@ -31,7 +31,7 @@ var FormSignUp2name = React.createClass({
         var user = Parse.User.current();
         user.set("firstName", model.firstName);
         user.set("lastName", model.lastName);
-        user.set("birthday", model.birthday);
+        //user.set("birthday", model.birthday);
         user.set("country", model.country);
 
         user.save({
@@ -50,13 +50,14 @@ var FormSignUp2name = React.createClass({
                 <h1>Sign Up!</h1>
                 <h6>Step 2 of 4</h6>
                 <Formsy.Form
-                    className="main__form"
+                    className="main__panel"
                     onValidSubmit={this.submit}
                     onValid={this.enableButton}
                     onInvalid={this.disableButton}>
                     <div className="field">
                         <label>First Name</label>
                         <FormInput
+                            placeholder="Bilbo"
                             name="firstName"
                             title="firstName"
                             //validations=""
@@ -66,6 +67,7 @@ var FormSignUp2name = React.createClass({
                     <div className="field">
                         <label>Last Name</label>
                         <FormInput
+                            placeholder="Baggins"
                             name="lastName"
                             title="lastName"
                             //validations=""
@@ -73,15 +75,17 @@ var FormSignUp2name = React.createClass({
                             required/>
                     </div>
                     <div className="field">
-                        <label>Year of birth</label>
+                        <label>Date of birth</label>
                         <FormInput
-                            name="yearOfBirth"
-                            title="yearOfBirth"
+                            placeholder="YYYY/MM/DD"
+                            name="birthday"
+                            title="birthday"
                         />
                     </div>
                     <div className="field">
                         <label>Country of Residence</label>
                         <FormInput
+                            placeholder="The Shire"
                             name="country"
                             title="country"
                         />

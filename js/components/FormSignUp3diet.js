@@ -71,7 +71,7 @@ var FormSignUp3diet = React.createClass({
                 <h6>Step 3 of 4</h6>
                 <Formsy.Form
                     onChange={this.onChangeDiet}
-                    className="main__form"
+                    className="main__panel"
                     onValidSubmit={this.submit}
                     onValid={this.enableButton}
                     onInvalid={this.disableButton}>
@@ -112,7 +112,7 @@ var DietResults = React.createClass({
             return (
                 <div className="statusMessage">
                     <p>Great! Because you chose a {this.props.diet} diet, we'll be looking out for the following
-                        ingredients: {Parse.User.current().get("to_avoid").join(", ")}
+                        ingredients: {[]}
                         .</p>
                     <p>You'll be able to customize this list in the next step...</p>
                 </div>
