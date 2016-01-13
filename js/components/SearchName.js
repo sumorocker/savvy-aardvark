@@ -1,6 +1,7 @@
 import React from 'react';
 import request from 'superagent';
 import {Link} from 'react-router';
+import { createHistory } from 'history';
 
 import Formsy from 'formsy-react';
 import FormInput from './FormInput';
@@ -24,17 +25,13 @@ var SearchName = React.createClass({
             canSubmit: false
         });
     },
-    submit: function (model) {
-        event.preventDefault();
-        this.props.history.pushState(null, '/search-result/' + model.searchName);
-    },
     render: function () {
         return (
             <div className="main">
                 <Formsy.Form
                     id="productSearch"
                     className="main__panel"
-                    onValidSubmit={this.submit}
+                    onValidSubmit={this.props.submitName}
                     onValid={this.enableButton}
                     onInvalid={this.disableButton}>
 

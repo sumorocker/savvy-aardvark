@@ -1,15 +1,16 @@
 import React  from 'react';
 import ReactDOM  from 'react-dom';
-import { Router, Route, IndexRoute } from 'react-router';
+import { Router, Route, IndexRoute, Navigation } from 'react-router';
 import { createHistory } from 'history';
 
 import App from './components/App';
 import Header from './components/Header';
 import Nav from './components/Nav';
 
-//import Home from './components/Home';
 import NotFound from './components/NotFound';
 import Search from './components/Search';
+import SearchName from './components/SearchName';
+import SearchUPC from './components/SearchUPC';
 import SearchResult from './components/SearchResult';
 import SignIn from './components/FormSignIn';
 import UserProfile from './components/UserProfile';
@@ -18,6 +19,7 @@ import FormSignUp2name from './components/FormSignUp2name';
 import FormSignUp3diet from './components/FormSignUp3diet';
 import FormSignUp4ingr from './components/FormSignUp4ingr';
 import MoreInfo from './components/MoreInfo';
+import SearchResultProduct from './components/SearchResultProduct';
 
 function mustBeLoggedIn(route, replaceState) {
     if (!Parse.User.current()) {
@@ -47,8 +49,8 @@ var routes = (
                 <Route path="ingredients" component={FormSignUp4ingr}/>
                 <Route path="search" component={Search}/>
 
-                {/* This should be dynamic and change to match the actual term searched */}
-                <Route path="search-result/:id" component={SearchResult}/>
+                <Route path="/search-result/:id" component={SearchResult}/>
+                <Route path="/search-result/product/:upc" component={SearchResultProduct}/>
             </Route>
             <Route path="moreinfo" component={MoreInfo}/>
             <Route path="*" component={NotFound}/>

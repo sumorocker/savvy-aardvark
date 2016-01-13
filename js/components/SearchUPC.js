@@ -24,17 +24,13 @@ var SearchUPC = React.createClass({
             canSubmit: false
         });
     },
-    submit: function (model) {
-        event.preventDefault();
-        this.props.history.pushState(null, '/search-result/' + model.searchUPC);
-    },
     render: function () {
         return (
             <div className="main">
                 <Formsy.Form
                     id="upcSearch"
                     className="main__panel"
-                    onValidSubmit={this.submit}
+                    onValidSubmit={this.props.submitUPC}
                     onValid={this.enableButton}
                     onInvalid={this.disableButton}>
 
