@@ -1,0 +1,284 @@
+<!doctype html>
+
+<head>
+  <meta charset="utf-8">
+
+  <title>Your Food Profile</title>
+  <meta name="description" content="Your Food Profile">
+  <meta name="viewport" content="width=device-width">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script type="text/javascript" src="https://www.parsecdn.com/js/parse-latest.js"></script>
+</head>
+
+<body>
+
+  <div id="main">
+
+    <!--Sign up form-->
+    <h1>Sign Up</h1>
+
+    <form id="signup">
+      <p>
+        <input type="text" id="signup-name" />
+      </p>
+      <p>
+        <input type="password" id="signup-password" />
+      </p>
+      <p>
+        <input type="submit" id="signup-submit" />
+      </p>
+    </form>
+    
+    <!--Log in-->
+    <h1>Log in</h1>
+    
+    <form id="login">
+      <p>
+        <input type="text" id="login-name" />
+      </p>
+      <p>
+        <input type="password" id="login-password" />
+      </p>
+      <p>
+        <input type="submit" id="login-submit" />
+      </p>
+    </form>
+
+    <!--Log out!-->
+    <h1> Log out</h1>
+
+    <div>
+      <button id="logout">Logout</button>
+    </div>
+
+    <!--Diet Profile-->
+
+    <h1>Choose your diet profile</h1>
+
+    <form id="diet_profile">
+      <p>
+        <input type="radio" name="diet" value="Vegetarian" id="vegetarian_profile" />Vegetarian</p>
+      <p>
+        <input type="radio" name="diet" value="Vegan" id="vegan_profile" />Vegan</p>
+      <p>
+        <input type="radio" name="diet" value="Paleo" id="paleo_profile" />Paleo</p>
+      <p>
+        <input type="submit" />
+      </p>
+    </form>
+
+    <!--Display ingredients to avoid-->
+
+    <form id="to_avoid">
+
+    </form>
+
+    <!--List of ingredients to avoid-->
+
+    <h1>Choose an ingredient you'd like to avoid</h1>
+
+    <form id="ingredient_form">
+      <p><input type="form" name="ingredient_avoid" id="ingredient_avoid" /></p>
+      <p><input type="submit" name="submit"/></p>
+    </form>
+
+    <!--Javascript stuff-->
+
+    <script type="text/javascript">
+      Parse.initialize("xMN2SDWbUpH0Tius0RAscb5Ia65CGOD7U1qKtAxH", "wlqxDznzkziAQB2hNhMFu5VKXvwKskjDonIhlSNn");
+
+      var User = Parse.Object.extend("User");
+
+      $('#logout').click(function(event) {
+        Parse.User.logOut()
+      });
+      
+      $("#login").submit(function(event) {
+        event.preventDefault();
+
+
+        var name = $("#login-name").val();
+        var pass = $("#login-password").val();
+        
+        Parse.User.logIn(name, pass, {
+          success: function(user) {
+            console.log("Welcome!");
+          },
+          error: function(user, error) {
+            console.log("Login error: " + error.message);
+          }
+
+        });
+      });
+
+      $("#signup").submit(function(event) {
+        event.preventDefault();
+
+
+        var name = $("#signup-name").val();
+        var pass = $("#signup-password").val();
+        // console.log(name, pass);
+
+        // var user = new Parse.User();
+
+        // user.set("username", name);
+        // user.set("password", pass);
+
+        /*user*/
+        Parse.User.signUp(name, pass, {
+          success: function(user) {
+            console.log("Welcome!");
+          },
+          error: function(user, error) {
+            console.log("Sign up error: " + error.message);
+          }
+
+        });
+      });
+      
+      // function checkLogin(){
+      //   if(Parse.User.current()){
+      //     console.log("I'm logged in!");
+      //   } else {
+      //     console.log('nope!');
+      //   }
+      // };
+      
+      // checkLogin();
+      
+
+      $("#diet_profile").submit(function(event) {
+        event.preventDefault();
+        
+        var user = Parse.User.current();
+        
+        var diet = $("input:radio[name=diet]:checked").val();
+
+        console.log(Parse.User.current());
+        console.log(diet);
+
+        user.set("diet", diet);
+        
+        if (diet === "Vegetarian") {
+          user.set('to_avoid', 
+          ['chicken', 'beef', 'pork', 'veal', 'turkey', 'crab', 'meat', 'ribs',
+          'rib', 'liver', 'fowl', 'tilapia', 'fish', 'jerky', 'bacon', 'sausage',
+          'ham', 'hog', 'kielbasa', 'chorizo', 'rib', 'ribs', 'shrimp', 'prosciutto',
+          'loin', 'herring', 'tenderloin', 'salmon', 'brisket', 'goose', 'dogs', 
+          'steak', 'steaks', 'hotdog', 'hotdogs', 'carbonara', 'fish', 'whitefish', 'fillets',
+          'filets', 'filet', 'filets', 'beefaroni', 'wings', 'seafood', 'cod',
+          'sardines', 'crabmeat', 'clam', 'clams', 'oysters', 'oyster', "chik'n",
+          'lobster', 'gelatin', 'tuna', 'caviar', 'lumpfish', 'catfish', 'trout',
+          'scallop', 'scallops', 'crawfish', 'swordfish', 'sole', 'halibut',
+          'pollock', 'squid', 'sturgeon', 'haddock', 'calamari', 'mussels',
+          'mackerel', 'lard', 'bear']);
+          user.set('skips', ['vegetarian', 'meatless']);
+        }
+        else if (diet === "Vegan") {
+          user.set('to_avoid', 
+          ['chicken', 'beef', 'pork', 'veal', 'turkey', 'crab', 'meat', 'ribs',
+          'rib', 'liver', 'fowl', 'tilapia', 'fish', 'jerky', 'bacon', 'sausage',
+          'ham', 'hog', 'kielbasa', 'chorizo', 'rib', 'ribs', 'shrimp', 'prosciutto',
+          'loin', 'herring', 'tenderloin', 'salmon', 'brisket', 'goose', 'dogs', 
+          'steak', 'steaks', 'hotdog', 'hotdogs', 'carbonara', 'fish', 'whitefish', 'fillets',
+          'filets', 'filet', 'filets', 'beefaroni', 'wings', 'seafood', 'cod',
+          'sardines', 'crabmeat', 'clam', 'clams', 'oysters', 'oyster', "chik'n",
+          'lobster', 'gelatin', 'tuna', 'caviar', 'lumpfish', 'catfish', 'trout',
+          'scallop', 'scallops', 'crawfish', 'swordfish', 'sole', 'halibut',
+          'pollock', 'squid', 'sturgeon', 'haddock', 'calamari', 'mussels', 'mackerel',
+          'eggs', 'egg', 'milk', 'mayonnaise', 'mayo', 'lard', 'bone', 'cod liver',
+          'dairy', 'egg yolk', 'milk sugar', 'yogurt', 'cheddar', 'cheese', 'bear',
+          'feta', 'brie', 'smetana', 'kefir', 'ricotta', 'infant formula',
+          'butter', 'buttermilk', 'curds', 'gelato', 'mozzarella', 'dulce de leche',
+          'custard', 'gomme', 'ice cream', 'junket', 'khoa', 'labneh', 'paneer',
+          'pytia', 'qimiq', 'quark', 'skorup', 'sour cream', 'tarhana', 'viili']);
+          user.set('skips', ['vegetarian', 'meatless', 'almond milk', 'soy milk',
+          'soymilk', 'soya milk', 'dairy-free', 'vegan', 'non-dairy']);
+          user.set('nutrients_to_avoid',
+          ['casein', 'collagen', 'keratin', 'gelatin', 'lactose', 'whey', 'albumin',
+          'allantoin', 'glutamic acid', 'glycogen', 'isinglass', 'lipase', 'pepsin',
+          'squalene', 'taurine', 'vaccenic acid']);
+          user.set('warning', 
+          ['glycerine', 'lactic acid', 'monoglyceride', 'diglycerides',
+          'stearic acid', 'rennet', 'pasta', 'artificial color', 'artificial colors',
+          'aspic', 'natural flavor', 'natural source', 'vitamin b12', 'chocolate',
+          'cream', 'noodles']);
+        }
+        else if (diet === "Paleo")
+          user.set('to_avoid', 
+          ['yogurt', 'cheddar', 'cheese', 'bear','feta', 'brie', 'smetana', 'kefir', 'ricotta', 'infant formula',
+          'butter', 'buttermilk', 'curds', 'gelato', 'mozzarella', 'milk',
+          'dairy', 'alcohol', 'beer', 'ale', 'ipa', 'grain', 'seeds', 'cereal',
+          'cereals', 'oats', 'oatmeal', 'bread', 'rice', 'potato', 'couscous',
+          'pasta', 'wheat', 'bulgar wheat', 'millet', 'sorgum', 'quinoa', 'cornmeal',
+          'barley', 'rye', 'pitta', 'focaccia', 'chapatis', 'bagel', 'ciabatta',
+          'tortilla', 'tortillas', 'potato', 'potatoes', 'chips', 'gnocci', 'yams',
+          'cassava', 'plantain', 'wholegrain', 'whole grain', 'whole grains',
+          'white sugar', 'agave syrup', 'corn syrup', 'high-fructose corn syrup',
+          'brown sugar', 'molasses', 'molasse', 'maple syrup', 'glucose syrup',
+          'tapioca syrup', 'rice bran syrup', 'malt syrup', 'sorghum', 'treacle',
+          'panela', 'carob syrup', 'flour', 'legume', 'rice flour', 'corn flour',
+          'oatmeal', 'white rice', 'beans', 'bean', 'peas', 'nuts', 'lentils',
+          'peanuts', 'chickpeas', 'butternut', 'miso', 'soynuts', 'soynut', 'soybean',
+          'aarts', 'amasi', 'dulce de leche', 'custard', 'gomme', 'ice cream', 'junket',
+          'khoa', 'labneh', 'paneer', 'pytia', 'qimiq', 'quark', 'skorup', 'sour cream',
+          'tarhana', 'viili']);
+          user.set('skips', ['soy milk', 'soymilk', 'soya milk',
+          'dairy-free', 'non-dairy', 'sweet potato', 'sweet potatoes',
+          'parsnips', 'turnips']);
+          user.set('nutrients_to_avoid',
+          ['alcohol', 'sugar alcohol', 'sucrose', 'fructose', 'maltose', 'dextran',
+          'saccharose', 'dextrose', 'dextrin', 'maltodextrin', 'casein']);
+
+        user.save({
+          success: function(result) {
+
+          },
+          error: function(error) {
+            console.log("Error: " + error.message);
+          }
+        });
+        
+        
+
+        // var query = new Parse.Query("User");
+
+        // query.equalTo("objectId", 'bhvuJNwimE');
+        
+        // query.find({
+        //   success: function(results) {
+        //     for (var i = 0; i < results.length; i++) {
+        //       $('#to_avoid').append('<p><input type="radio" name="to_avoid" value="' + results[i].get('to_avoid') + '" id="' + results[i].get('to_avoid') + '"/>' + results[i].get('to_avoid') + '</p>');
+        //     }
+        //   },
+        //   error: function(error) {
+        //     console.log("There's an error: " + error.message);
+        //   }
+        // });
+
+      });
+      
+      $("#ingredient_form").submit(function(event) {
+          console.log("fsdf");
+            event.preventDefault();
+              
+            var user = Parse.User.current();
+            
+            var ingredient = $("#ingredient_avoid").val();
+            console.log(ingredient);
+            
+            user.addUnique('to_avoid', ingredient);
+            user.save({
+              success: function(user){
+                console.log("Ingredient added!");
+              }, error: function(){
+                console.log("Error adding ingredient: " + error.message);
+              }
+              
+            });
+            
+        });
+    </script>
+</body>
+
+</html>
