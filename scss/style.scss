@@ -258,6 +258,33 @@ nav {
   }
 }
 
+.verdict {
+  background: white;
+  border-radius: 50%;
+  height: 286px;
+  margin: 0 auto;
+  padding: 0 0 30px;
+  width: 286px;
+
+  h1 {
+    font-size: 300px;
+    padding: 0;
+    text-align: center;
+    i {
+      margin-top: -10px;
+    }
+  }
+  &__yes {
+    color: $go-color;
+  }
+  &__no {
+    color: $stop-color;
+  }
+  &__warn {
+    color: $warning-color;
+  }
+}
+
 // ----------------------------------------------------------------------
 // Medium Screens
 @media screen and (min-width: 601px) {

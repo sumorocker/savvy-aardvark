@@ -21,6 +21,10 @@ import FormSignUp4ingr from './components/FormSignUp4ingr';
 import MoreInfo from './components/MoreInfo';
 import SearchResultProduct from './components/SearchResultProduct';
 
+import Result from './components/Result';
+
+
+
 function mustBeLoggedIn(route, replaceState) {
     if (!Parse.User.current()) {
         replaceState(null, '/signup');
@@ -38,7 +42,7 @@ function frontPageDisplay(route, replaceState) {
 var routes = (
     <Router history={createHistory()}>
         <Route path="/" component={App}>
-            <IndexRoute onEnter={frontPageDisplay} />
+            <IndexRoute onEnter={frontPageDisplay}/>
             <Route path="signin" component={SignIn}/>
             <Route path="signup" component={FormSignUp1}/>
 
@@ -51,9 +55,12 @@ var routes = (
 
                 <Route path="/search-result/:id" component={SearchResult}/>
                 <Route path="/search-result/product/:upc" component={SearchResultProduct}/>
+                <Route path="result" component={Result}/>
+
             </Route>
             <Route path="moreinfo" component={MoreInfo}/>
             <Route path="*" component={NotFound}/>
+
         </Route>
     </Router>
 )
