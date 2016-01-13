@@ -47,7 +47,7 @@ var SearchName = React.createClass({
                         className="submit-btn searchSubmit"
                         type="submit"
                         disabled={!this.state.canSubmit}>
-                        Go!
+                        go
                     </button>
                 </Formsy.Form>
             </div>
