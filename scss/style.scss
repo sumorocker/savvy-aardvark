@@ -1,2 +1,276 @@
 // MeyerWeb CSS reset
 @import "reset";
+// Default Colors, Fonts, etc
+@import "default-styles";
+
+// Small Screens - Mobile First!!!!!!
+html {
+  background: url('/images/bgImages/bg5.jpg') no-repeat center center fixed;
+  background-size: cover;
+  height: 100%;
+}
+
+body {
+  //height: 100%;
+}
+
+#header {
+  margin: .75em 0;
+  padding-bottom: 1em;
+  text-align: center;
+
+  &__savvy {
+    display: inline-block;
+    text-align: right;
+    top: -.8em;
+    right: 20px;
+    position: relative;
+    width: 100px;
+  }
+  &__aardvark {
+    display: inline-block;
+    top: -.8em;
+    left: 20px;
+    position: relative;
+    width: 100px;
+  }
+  &__logo {
+    background: white;
+    height: 80px;
+    margin: .5em 0 0 0;
+    overflow: hidden;
+    width: 80px;
+    border-radius: 50%;
+  }
+
+  &__title {
+    color: white;
+  }
+}
+
+nav {
+  background: rgba(255, 255, 255, 0.5);
+  display: block;
+  height: 48px;
+
+  p {
+    color: $go-color;
+    display: inline-block;
+    float: left;
+    font-family: $form-font;
+    font-weight: bold;
+    margin: 16px 0 0 .6em;
+    float: left;
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    float: right;
+    width: 50%;
+
+    li {
+      float: right;
+      margin: .6em 8px;
+
+      i {
+        margin: 0;
+        padding: 0 5px;
+
+      }
+      a {
+        color: white;
+
+        &:hover {
+          color: $go-color;
+          transition: all .4s ease;
+        }
+      }
+    }
+  }
+}
+
+.tooltip {
+  display: inline;
+  position: relative;
+
+  &:hover {
+
+    &:after {
+      background: $go-color;
+      bottom: -29px;
+      color: #fff;
+      content: attr(title);
+      font-size: 14px;
+      left: -18px;
+      padding: 5px 15px;
+      position: absolute;
+      z-index: 98;
+      width: 150px;
+    }
+
+    &:before {
+      border: solid;
+      border-color: $go-color transparent;
+      border-width: 0 6px 6px 6px;
+      bottom: -6px;
+      content: "";
+      left: 8px;
+      position: absolute;
+      z-index: 99;
+    }
+  }
+}
+
+.signin {
+  &__btn {
+    background: $main-color;
+    border: 1px solid white;
+    color: white;
+    display: block;
+    float: right;
+    font-family: $form-font;
+    font-size: 14px;
+    margin: 6px;
+    padding: 10px 10px;
+    text-transform: uppercase;
+  }
+}
+
+// FORM Styling
+.field {
+  color: grey;
+  display: block;
+  font-family: $form-font;
+  font-size: .85em;
+  font-weight: normal;
+  margin-bottom: 1em;
+
+  label {
+    margin-left: 1px;
+  }
+  input {
+    color: silver;
+    font-size: 1.2em;
+    height: 3em;
+    margin: .1em 0;
+    padding: 0 .35em;
+    width: 100%;
+  }
+}
+
+.submit-btn {
+  display: block;
+  margin: 0 auto;
+  color: white;
+  cursor: pointer;
+  background: green;
+  border: none;
+  font-family: $header-font;
+  font-size: 1.2em;
+  margin: .5em 0 1em;
+  padding: .5em;
+  width: 100px;
+}
+
+.searchBar {
+  display: inline-block;
+  width: 85%;
+}
+
+.searchSubmit {
+  display: inline-block;
+  width: 15%;
+  border: none;
+  margin-left: -1px;
+}
+
+.diets li {
+  background: lightyellow;
+  border-radius: 10px;
+  display: block;
+  font-family: $body-font;
+  font-weight: bold;
+  margin: 1em;
+  padding: 1.25em;
+
+}
+
+// Error Message Class (from react-validation)
+.ui-hint {
+  color: $stop-color;
+  font-weight: bold;
+  margin: -3px 0 .5em;
+}
+
+.main {
+  display: block;
+  margin: 2em auto;
+  max-width: 600px;
+
+  h1 {
+    text-align: center;
+    margin-bottom: 1em;
+  }
+
+  &__panel {
+    background: rgba(255, 255, 255, .8);
+    margin: 0 1em 1em;
+    padding: 1.5em 1em 2em;
+    width: 92%;
+
+    p {
+      color: grey;
+      font-family: $form-font;
+      margin: 1em 0;
+    }
+  }
+
+  #registered {
+    display: block;
+    float: right;
+    font-family: $form-font;
+    font-size: .8em;
+    //margin-bottom: 1em;
+
+    a {
+      color: $main-color;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+  }
+}
+
+.user {
+
+  &__detail {
+
+    h3 {
+      font-size: 1em;
+    }
+    p {
+
+    }
+  }
+}
+
+// ----------------------------------------------------------------------
+// Medium Screens
+@media screen and (min-width: 601px) {
+
+}
+
+// Large Screens
+@media screen and (min-width: 1025px) {
+
+}
+
+// XLarge Screens
+@media screen and (min-width: 1441px) {
+
+}
+
+// Insanely Large Screens (Who uses this? On a TV?)
+@media screen and (min-width: 1921px) {
+
+}
