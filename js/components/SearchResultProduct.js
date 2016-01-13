@@ -8,15 +8,16 @@ import FormInput from './FormInput';
 import Parse from 'parse'
 Parse.initialize("xMN2SDWbUpH0Tius0RAscb5Ia65CGOD7U1qKtAxH", "wlqxDznzkziAQB2hNhMFu5VKXvwKskjDonIhlSNn");
 
+var _ = require("underscore");
+
 var SearchResultProduct = React.createClass({
 
     getInitialState() {
         return {
             canSubmit: false,
+            ingredientFound: false,
             product_name: [],
             allergens: [],
-            // nutrients: [],
-            // additives: [],
             food_category: [],
             ingredients: []
         }
@@ -37,11 +38,26 @@ var SearchResultProduct = React.createClass({
         var that = this
 
         Parse.Cloud.run('UPC', {search: searchInputObj}).then(function (response) {
-            console.log(response)
+
+            var ProductArray = response.productsArray[0].ingredients.toLowerCase().split(",");
+            var UserArray = Parse.User.current().get("to_avoid");
+
+            console.log(UserArray);
+            console.log(ProductArray);
+
+            if(_.intersection(UserArray, ProductArray).length === 0){
+                console.log (_.intersection(UserArray, ProductArray).length);
+                var state = (false);
+            }else{
+                console.log (true);
+                var state = true
+            }
+
             that.setState({
-                product_name: response.productsArray[0].product_name,
-                ingredients: response.productsArray[0].ingredients,
+                product_name: response.productsArray[0].product_name.toLowerCase(),
+                ingredients: response.productsArray[0].ingredients.toLowerCase(),
                 food_category: response.productsArray[0].food_category,
+                ingredientFound: state
             })
             Parse.Cloud.run("productAdditives", {search: searchInputObj}).then(function (output) {
                 console.log(output)
