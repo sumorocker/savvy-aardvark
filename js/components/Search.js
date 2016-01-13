@@ -12,12 +12,6 @@ var Search = React.createClass({
     getInitialState() {
         return {
             canSubmit: false,
-            product_name: [],
-            allergens: [],
-            nutrients: [],
-            additives: [],
-            food_category: [],
-            ingredients: []
         }
     },
     enableButton: function () {
@@ -32,50 +26,8 @@ var Search = React.createClass({
     },
     submit: function (model) {
         event.preventDefault();
+        this.props.history.pushState(null, '/search-result/'+ model.searchInput);
 
-        console.log(model.searchInput);
-
-        var that = this;
-        var searchInputObj = model.searchInput;
-
-        if (!isNaN(model.searchInput)) {
-            Parse.Cloud.run('UPC', {search: searchInputObj}).then(function (response) {
-                console.log(response)
-                that.setState({
-                    product_name: response.productsArray[0].product_name,
-                    ingredients: response.productsArray[0].ingredients,
-                    food_category: response.productsArray[0].food_category,
-                })
-                Parse.Cloud.run("productAdditives", {search: searchInputObj}).then(function (output) {
-                    console.log(output)
-                    that.setState({
-                        allergens: output.allergens.map(function (allergen) {
-                            if (allergen.allergen_value > 0) {
-                                return allergen.allergen_name + ', ';
-                            } else {
-                                console.log("excluded allergens");
-                            }
-                        })
-                    })
-                })
-            }, function (error) {
-                console.log(error.message);
-            })
-
-        } else {
-            var searchInputObj = model.searchInput;
-            var res = searchInputObj.replace(' ', '+');
-            Parse.Cloud.run('productName', {search: res}).then(function (response) {
-                console.log(response)
-                that.setState({
-                    product_name: response.productsArray.map(function (products) {
-                        return products.product_name + ', ';
-                    })
-                })
-            }, function (error) {
-                // console.log(error);
-            })
-        }
     },
     render: function () {
         return (

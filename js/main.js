@@ -1,6 +1,6 @@
 import React  from 'react';
 import ReactDOM  from 'react-dom';
-import { Router, Route, IndexRoute } from 'react-router';
+import { Router, Route, IndexRoute, Navigation } from 'react-router';
 import { createHistory } from 'history';
 
 import App from './components/App';
@@ -18,6 +18,7 @@ import FormSignUp2name from './components/FormSignUp2name';
 import FormSignUp3diet from './components/FormSignUp3diet';
 import FormSignUp4ingr from './components/FormSignUp4ingr';
 import MoreInfo from './components/MoreInfo';
+import SearchResultProduct from './components/SearchResultProductVersion2';
 
 function mustBeLoggedIn(route, replaceState) {
     if (!Parse.User.current()) {
@@ -48,7 +49,8 @@ var routes = (
                 <Route path="search" component={Search}/>
 
                 {/* This should be dynamic and change to match the actual term searched */}
-                <Route path="search-result" component={SearchResult}/>
+                <Route path="/search-result/:id" component={SearchResult}/>
+                <Route path="/search-result/product/:upc" component={SearchResultProduct}/>
             </Route>
             <Route path="moreinfo" component={MoreInfo}/>
             <Route path="*" component={NotFound}/>
