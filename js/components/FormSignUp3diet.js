@@ -43,16 +43,16 @@ var FormSignUp3diet = React.createClass({
         user.set("diet", model.diet);
         if (model.diet === "Vegetarian") {
             user.set('to_avoid', dietSpecs.restrictionsVegetarian());
-            user.set('to_alert', dietSpecs.warningsVegetarian);
-            user.set('nutrients_to_avoid', dietSpecs.nutrientsVegetarian);
+            user.set('to_alert', dietSpecs.warningsVegetarian());
+            user.set('nutrients_to_avoid', dietSpecs.nutrientsVegetarian());
         } else if (model.diet === "Vegan") {
             user.set('to_avoid', dietSpecs.restrictionsVegan());
-            user.set('to_alert', dietSpecs.warningsVegan);
-            user.set('nutrients_to_avoid', dietSpecs.nutrientsVegan);
+            user.set('to_alert', dietSpecs.warningsVegan());
+            user.set('nutrients_to_avoid', dietSpecs.nutrientsVegan());
         } else if (model.diet === "Paleo") {
             user.set('to_avoid', dietSpecs.restrictionsPaleo());
-            user.set('to_alert', dietSpecs.warningsPaleo);
-            user.set('nutrients_to_avoid', dietSpecs.nutrientsPaleo);
+            user.set('to_alert', dietSpecs.warningsPaleo());
+            user.set('nutrients_to_avoid', dietSpecs.nutrientsPaleo());
         } else if (model.diet === "None") {
             user.set('to_avoid', []);
             user.set('to_alert', []);

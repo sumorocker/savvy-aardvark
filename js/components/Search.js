@@ -19,7 +19,7 @@ var Search = React.createClass({
     submitUPC: function (model) {
         event.preventDefault();
         console.log(model.searchUPC);
-        this.props.history.pushState(null, '/search-result/' + model.searchUPC);
+        this.props.history.pushState(null, '/search-result/product/' + model.searchUPC);
     },
     render: function () {
         return (

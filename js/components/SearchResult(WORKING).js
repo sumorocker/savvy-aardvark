@@ -2,9 +2,8 @@ import React from 'react';
 import Parse from 'parse';
 
 import {Link} from 'react-router';
+import ReactPaginate from 'react-paginate';
 
-var Paginator = require('react-pagify');
-// var css = require('react-pagify/style.css');
 
 Parse.initialize("xMN2SDWbUpH0Tius0RAscb5Ia65CGOD7U1qKtAxH", "wlqxDznzkziAQB2hNhMFu5VKXvwKskjDonIhlSNn");
 
@@ -17,9 +16,9 @@ var SearchResult = React.createClass({
             pagination: {
                     page: 0,
                     perPage: 5
-            }
-    }
-},
+        
+            },
+    },
     enableButton: function () {
         this.setState({
             canSubmit: true
@@ -30,15 +29,20 @@ var SearchResult = React.createClass({
             canSubmit: false
         });
     },
-    componentWillMount: function (model) {
+    componentDidMount: function (model) {
 
         var that = this;
         var searchInputObj = this.props.params.id;
         console.log(searchInputObj)
         var res = searchInputObj.replace(' ', '+');
 
-        Parse.Cloud.run('productName',{search: res}).then(function (response) {
-            // console.log(response)
+        Parse.Cloud.run('productName', 
+            {search: res,
+            limit: this.props.pagination.perPage,
+            offset: this.props.pagination.perPage * this.props.pagination.page,
+            }
+            ).then(function (response) {
+            console.log(response)
             that.setState({
                 products:response.productsArray,
 
@@ -48,10 +52,9 @@ var SearchResult = React.createClass({
         })
     },
     render() {
-        var data = this.state.products || [];
+        var data = this.state.products.product_name || [];
         var pagination = this.state.pagination || {};
         var paginated = Paginator.paginate(data, pagination);
-
 
         return (
             <article>
@@ -71,8 +74,8 @@ var SearchResult = React.createClass({
                     inactiveClassName='inactive'
                     page={paginated.page}
                     pages={paginated.amount}
-                    beginPages={3}
-                    endPages={3}
+                    beginPages={1}
+                    endPages={5}
                     showPrevNext={true}
                     alwaysShowPrevNext={true}
                     prevButton={'Previous one'}
@@ -81,18 +84,7 @@ var SearchResult = React.createClass({
                 </Paginator>
 
                 <div className='data'>
-                 <div className="main">
-                 <h1>Results</h1>
-                 <div className="main__panel">
-                     <ul className="results">
-                        {
-                            paginated.data.map(function(product){
-                                return <li><Link to={'/search-result/product/' + product.upc}>{product.product_name}></Link></li>
-                            }.bind(this))
-                        }
-                    </ul>
-                </div>
-            </div>
+                    ...
                 </div>
             </article>
         );
@@ -100,7 +92,7 @@ var SearchResult = React.createClass({
 
     onSelect(page) {
         var pagination = this.state.pagination || {};
-        console.log(page)
+
         pagination.page = page;
 
         this.setState({
@@ -110,7 +102,8 @@ var SearchResult = React.createClass({
 
     onPerPage(e) {
         var pagination = this.state.pagination || {};
-        pagination.perPage = parseInt(e.target.value, 10);
+
+        pagination.perPage = parseInt(event.target.value, 10);
 
         this.setState({
             pagination: pagination
@@ -118,4 +111,23 @@ var SearchResult = React.createClass({
     },
 });
 
-export default SearchResult;
+//     render() {
+//         return (
+//             <div className="main">
+//                 <h1>Results</h1>
+//                 <div className="main__panel">
+//                     <ul className="results">
+//                         {
+//                             this.state.products.map(function(product){
+//                                 return <li><Link to={'/search-result/product/' + product.upc}>{product.product_name}></Link></li>
+//                             }.bind(this))
+//                         }
+//                     </ul>
+//                 </div>
+//             </div>
+//         )
+//     }
+
+// });
+
+// export default SearchResult;

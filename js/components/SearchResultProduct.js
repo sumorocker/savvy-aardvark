@@ -19,7 +19,8 @@ var SearchResultProduct = React.createClass({
             product_name: [],
             allergens: [],
             food_category: [],
-            ingredients: []
+            ingredients: [],
+            nutrients: []
         }
     },
     enableButton: function () {
@@ -37,6 +38,8 @@ var SearchResultProduct = React.createClass({
         var searchInputObj = this.props.params.upc;
         var that = this;
 
+
+
         Parse.Cloud.run('UPC', {search: searchInputObj}).then(function (response) {
 
             var ProductArray = response.productsArray[0].ingredients.toLowerCase().split(" ");
@@ -49,30 +52,63 @@ var SearchResultProduct = React.createClass({
                 return string.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
             })
 
+            var NutrientArray = response.productsArray[0].nutrients.filter(function(nutrient){
+                return nutrient.nutrient_value !== ""        
+                }).map(function(nutrient){
+                    return nutrient.nutrient_name +': '+ nutrient.nutrient_value +' '+ nutrient.nutrient_uom+ ', '
+                })
+
+            var NutrientName = response.productsArray[0].nutrients.filter(function(nutrientName){
+                return nutrientName.nutrient_value !== "" 
+                }).map(function(nutrientName){
+                    return nutrientName.nutrient_name
+                })
+            console.log(NutrientName);
+
             var ProductArrayMaster = newProductArray.concat(newProductArray2);
-
-
             var ProductArray = response.productsArray[0].ingredients.toLowerCase().split(",");
-            var UserArray = Parse.User.current().get("to_avoid");
+            var UserIngredientArray = Parse.User.current().get("to_avoid");
+            var UserNutrientArray = Parse.User.current().get("nutrients_to_avoid");
 
-            console.log(ProductArrayMaster);
-            console.log(UserArray);
 
-            if (_.intersection(UserArray, ProductArrayMaster).length === 0) {
-                console.log(_.intersection(UserArray, ProductArrayMaster).length);
-                var state = "eat"; // "eat" means you can eat it
 
-            } else {
-                var state = "noteat" // "noteat" means don't it
+            if (_.intersection(UserIngredientArray, ProductArrayMaster).length === 0) {
+                var state = false; // "eat" means you can eat it
+
+                if(_.intersection(UserNutrientArray, NutrientName).length === 0) {
+                    var state = false;
+                    }else{
+                        var state = true;
+                    }
+            }else{
+                var state = true;
             }
 
             that.setState({
                 product_name: response.productsArray[0].product_name.toLowerCase(),
                 ingredients: response.productsArray[0].ingredients.toLowerCase(),
+                nutrients: NutrientArray,
                 food_category: response.productsArray[0].food_category,
                 ingredientFound: state
+            }, function() {
+
+                    var Search = Parse.Object.extend("Searches");
+                    var search = new Search()
+                    search.set("productName", that.state.product_name.toString());
+                    search.set('productDescription', that.state.food_category.toString());
+                    search.set('ingredients', that.state.ingredients.toString());
+                    search.set('permission', that.state.ingredientFound);
+                    search.set('userId', Parse.User.current());
+                    search.save({
+                    success: function(results){
+                    console.log("Added!");
+                    }, error: function(res, error){
+                    console.log(error.message);
+
+                            }
+                        });
             })
-            Parse.Cloud.run("productAdditives", {search: searchInputObj}).then(function (output) {
+                Parse.Cloud.run("productAdditives", {search: searchInputObj}).then(function (output) {
                 console.log(output)
                 that.setState({
                     allergens: output.allergens.map(function (allergen) {
@@ -86,10 +122,10 @@ var SearchResultProduct = React.createClass({
             })
         }, function (error) {
             console.log(error.message);
-        })
+        });
     },
     render() {
-        if (this.state.ingredientFound === "eat") {
+        if (this.state.ingredientFound === false) {
             return (
                 <div id="verdict-wrapper">
                     <div className="verdict">
@@ -104,18 +140,20 @@ var SearchResultProduct = React.createClass({
                             <ul className="results">
                                 <li>Product: {this.state.product_name}</li>
                                 <br/>
-                                <li>ingredients: {this.state.ingredients}</li>
+                                <li>Ingredients: {this.state.ingredients}</li>
                                 <br/>
                                 <li>Food Category: {this.state.food_category}</li>
                                 <br/>
                                 <li>Allergens: {this.state.allergens}</li>
+                                <br/>
+                                <li>nutrients: {this.state.nutrients}</li>
                                 <br/>
                             </ul>
                         </div>
                     </div>
                 </div>
             )
-        } else if (this.state.ingredientFound === "noteat") {
+        } else if (this.state.ingredientFound === true) {
             return (
 
                 <div id="verdict-wrapper">
@@ -131,11 +169,13 @@ var SearchResultProduct = React.createClass({
                             <ul className="results">
                                 <li>Product: {this.state.product_name}</li>
                                 <br/>
-                                <li>ingredients: {this.state.ingredients}</li>
+                                <li>Ingredients: {this.state.ingredients}</li>
                                 <br/>
                                 <li>Food Category: {this.state.food_category}</li>
                                 <br/>
                                 <li>Allergens: {this.state.allergens}</li>
+                                <br/>
+                                <li>nutrients: {this.state.nutrients}</li>
                                 <br/>
                             </ul>
                         </div>
@@ -157,11 +197,13 @@ var SearchResultProduct = React.createClass({
                             <ul className="results">
                                 <li>Product: {this.state.product_name}</li>
                                 <br/>
-                                <li>ingredients: {this.state.ingredients}</li>
+                                <li>Ingredients: {this.state.ingredients}</li>
                                 <br/>
                                 <li>Food Category: {this.state.food_category}</li>
                                 <br/>
                                 <li>Allergens: {this.state.allergens}</li>
+                                <br/>
+                                <li>nutrients: {this.state.nutrients}</li>
                                 <br/>
                             </ul>
                         </div>
