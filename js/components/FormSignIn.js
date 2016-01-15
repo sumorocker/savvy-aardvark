@@ -11,7 +11,8 @@ import FormInput from './FormInput';
 var SignIn = React.createClass({
     getInitialState: function () {
         return {
-            canSubmit: false
+            canSubmit: false,
+            results: []
         }
     },
     enableButton: function () {
@@ -38,7 +39,31 @@ var SignIn = React.createClass({
                 that.props.history.pushState(null, '/search');
             }
         );
+
+    var query = new Parse.Query('Searches');
+
+    query.include(Parse.User.current());
+
+    query.find({
+    success: function(results){
+        console.log(results);
+      results.forEach(function(result){
+         var name = results.get("productName");
+          // var upc = results[i].get("productUPC");
+          var createdAt = results.get("createdAt");
+          var permission = results.get('permission');
+          console.log(name)
+      })
+
+         
+
+  }, error: function(error){
+      console.log(error.message);
+  }
+  
+})
     },
+
     render: function () {
         return (
             <div className="main">
